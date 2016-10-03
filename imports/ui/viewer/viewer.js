@@ -68,7 +68,7 @@ Template.viewer.onRendered(function() {
 			if(typeof result !== 'undefined') {
 				window.open(Router.url('template', {'paspoortnummer': result.paspoortnummer, 'straatnaam': result.straatnaam, 'woonplaats': result.woonplaats, 
 					'boomsoort': result.boomsoort, 'aantal': result.aantal, 'terrein': result.terrein, 'monumentaal': result.monumentaal, 
-					'waardevol': result.waardevol}));
+					'waardevol': result.waardevol, 'coord1': evt.coordinate[0], 'coord2': evt.coordinate[1]}));
 			}
 		});
 	});
