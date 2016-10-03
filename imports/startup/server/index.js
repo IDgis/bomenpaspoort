@@ -1,0 +1,1 @@
+import './featureinfo.js';
