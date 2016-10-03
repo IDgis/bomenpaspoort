@@ -65,7 +65,11 @@ Template.viewer.onRendered(function() {
 				map.getView().getProjection(), {'INFO_FORMAT': 'application/vnd.ogc.gml'});
 		
 		Meteor.call('getFeatureInfo', url, function(err, result) {
-			console.log(result);
+			if(typeof result !== 'undefined') {
+				window.open(Router.url('template', {'paspoortnummer': result.paspoortnummer, 'straatnaam': result.straatnaam, 'woonplaats': result.woonplaats, 
+					'boomsoort': result.boomsoort, 'aantal': result.aantal, 'terrein': result.terrein, 'monumentaal': result.monumentaal, 
+					'waardevol': result.waardevol}));
+			}
 		});
 	});
 });
