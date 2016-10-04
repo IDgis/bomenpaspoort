@@ -28,7 +28,7 @@ Template.template.onRendered(function() {
 	var view = new ol.View({
 		projection: projection,
 		center: boomCoordinaten,
-		zoom: 5
+		zoom: 3
 	});
 
 	var zoomControl = new ol.control.Zoom();
@@ -72,7 +72,13 @@ Template.template.onRendered(function() {
 	var layer = new ol.layer.Image({
 		source: new ol.source.ImageWMS({
 			url: 'http://sittard-geleen.gispubliek.nl/kragten/services/wms_sittard_geleen?', 
-			params: {'LAYERS': 'Sittard-Geleen', 'VERSION': '1.3.0'} 
+			params: {'LAYERS': 'Sittard-Geleen', 'VERSION': '1.3.0',
+				'sld_body': '<StyledLayerDescriptor version="1.0.0" xmlns="http://www.opengis.net/sld"><NamedLayer><Name>Sittard-Geleen</Name>' +
+					'<NamedStyle><Name>default</Name></NamedStyle></NamedLayer><NamedLayer><Name>Sittard-Geleen</Name><LayerFeatureConstraints>' +
+					'<FeatureTypeConstraint><ogc:Filter xmlns:app="http://www.deegree.org/app" xmlns:ogc="http://www.opengis.net/ogc">' +
+					'<ogc:PropertyIsEqualTo><ogc:PropertyName>paspoort</ogc:PropertyName><ogc:Literal>' + boominfo.paspoortnummer + '</ogc:Literal>' +
+					'</ogc:PropertyIsEqualTo></ogc:Filter></FeatureTypeConstraint></LayerFeatureConstraints><NamedStyle><Name>paspoortbomen_selected' +
+					'</Name></NamedStyle></NamedLayer></StyledLayerDescriptor>'}
 		})
 	});
 	
