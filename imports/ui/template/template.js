@@ -1,7 +1,25 @@
-import './viewer.html';
-import './viewer.css';
+import './template.html';
+import './template.css';
 
-Template.viewer.onRendered(function() {
+Template.template.onRendered(function() {
+	var boominfo = Session.get('boomInformatie');
+	var boomCoordinaten = Session.get('boomCoordinaten');
+	
+	$('#js-paspoortnummer').append(boominfo.paspoortnummer);
+	$('#js-straatnaam').append(boominfo.straatnaam);
+	$('#js-woonplaats').append(boominfo.woonplaats);
+	$('#js-boomsoort').append(boominfo.boomsoort);
+	$('#js-aantal').append(boominfo.aantal);
+	$('#js-terrein').append(boominfo.terrein);
+	$('#js-monumentaal').append(boominfo.monumentaal);
+	$('#js-waardevol').append(boominfo.waardevol);
+	
+	var imgSrc = 'http://sittard-geleen.gispubliek.nl/paspoortfotos/' + boominfo.paspoortnummer + '.jpg';
+	var img = document.createElement('img');
+	$(img).attr('src', imgSrc);
+	$(img).attr('class', 'img-pnr');
+	$('#photo-1-block').append(img);
+	
 	var projection = new ol.proj.Projection({
 		code: 'EPSG:28992',
 		extent: [185130.30300000, 331786.35260000, 186691.93210000, 333634.55600000]
@@ -9,8 +27,8 @@ Template.viewer.onRendered(function() {
 
 	var view = new ol.View({
 		projection: projection,
-		center: [185911, 332710],
-		zoom: 1
+		center: boomCoordinaten,
+		zoom: 5
 	});
 
 	var zoomControl = new ol.control.Zoom();
@@ -47,7 +65,7 @@ Template.viewer.onRendered(function() {
 	map = new ol.Map({
 		layers: [achtergrond],
 		control: zoomControl,
-		target: 'map',
+		target: 'map-template',
 		view: view
 	});
 	
@@ -59,17 +77,4 @@ Template.viewer.onRendered(function() {
 	});
 	
 	map.addLayer(layer);
-	
-	map.on('singleclick', function(evt) {
-		var url = layer.getSource().getGetFeatureInfoUrl(evt.coordinate, map.getView().getResolution(), 
-				map.getView().getProjection(), {'INFO_FORMAT': 'application/vnd.ogc.gml'});
-		
-		Meteor.call('getFeatureInfo', url, function(err, result) {
-			if(typeof result !== 'undefined') {
-				window.open(Router.url('template', {'paspoortnummer': result.paspoortnummer, 'straatnaam': result.straatnaam, 'woonplaats': result.woonplaats, 
-					'boomsoort': result.boomsoort, 'aantal': result.aantal, 'terrein': result.terrein, 'monumentaal': result.monumentaal, 
-					'waardevol': result.waardevol, 'coord1': evt.coordinate[0], 'coord2': evt.coordinate[1]}));
-			}
-		});
-	});
 });

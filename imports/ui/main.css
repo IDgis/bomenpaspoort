@@ -1,1 +1,7 @@
-html, body, #page {width:100%;height:100%;}
+@media screen, print {
+	html, body, #page {width:100%;height:100%;}
+}
+
+@media print {
+	body {-webkit-print-color-adjust:exact;}
+}
