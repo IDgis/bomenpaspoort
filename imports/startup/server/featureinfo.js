@@ -8,8 +8,6 @@ Meteor.methods({
 		if(typeof xml.FeatureCollection['gml:featureMember'] !== 'undefined') {
 			var featureObject = xml.FeatureCollection['gml:featureMember'][0]['app:paspoortbomen_sittard_geleen'][0];
 			
-			console.log(featureObject);
-			
 			var paspoortnummer = featureObject['app:paspoort'][0];
 			var straatnaam = featureObject['app:straatnaam'][0];
 			var woonplaats = featureObject['app:wpl_wijk'][0];
