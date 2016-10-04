@@ -67,8 +67,8 @@ Template.viewer.onRendered(function() {
 		Meteor.call('getFeatureInfo', url, function(err, result) {
 			if(typeof result !== 'undefined') {
 				window.open(Router.url('template', {'paspoortnummer': result.paspoortnummer, 'straatnaam': result.straatnaam, 'woonplaats': result.woonplaats, 
-					'boomsoort': result.boomsoort, 'aantal': result.aantal, 'terrein': result.terrein, 'monumentaal': result.monumentaal, 
-					'waardevol': result.waardevol, 'coord1': evt.coordinate[0], 'coord2': evt.coordinate[1]}));
+					'boomsoort': result.boomsoort, 'aantal': result.aantal, 'aanlegjaar': result.aanlegjaar, 'terrein': result.terrein, 
+					'monumentaal': result.monumentaal, 'waardevol': result.waardevol, 'coord1': evt.coordinate[0], 'coord2': evt.coordinate[1]}));
 			}
 		});
 	});

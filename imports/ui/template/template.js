@@ -10,6 +10,7 @@ Template.template.onRendered(function() {
 	$('#js-woonplaats').append(boominfo.woonplaats);
 	$('#js-boomsoort').append(boominfo.boomsoort);
 	$('#js-aantal').append(boominfo.aantal);
+	$('#js-aanlegjaar').append(boominfo.aanlegjaar);
 	$('#js-terrein').append(boominfo.terrein);
 	$('#js-monumentaal').append(boominfo.monumentaal);
 	$('#js-waardevol').append(boominfo.waardevol);
