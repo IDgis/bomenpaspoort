@@ -18,7 +18,7 @@ Template.template.onRendered(function() {
 	var img = document.createElement('img');
 	$(img).attr('src', imgSrc);
 	$(img).attr('class', 'img-pnr');
-	$('#photo-block').append(img);
+	$('#photo-1-block').append(img);
 	
 	var projection = new ol.proj.Projection({
 		code: 'EPSG:28992',
