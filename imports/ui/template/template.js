@@ -14,11 +14,21 @@ Template.template.onRendered(function() {
 	$('#js-monumentaal').append(boominfo.monumentaal);
 	$('#js-waardevol').append(boominfo.waardevol);
 	
-	var imgSrc = 'http://sittard-geleen.gispubliek.nl/paspoortfotos/' + boominfo.paspoortnummer + '.jpg';
+	var imgSrcLeft = 'http://sittard-geleen.gispubliek.nl/paspoortfotos/' + boominfo.paspoortnummer + 'L.jpg';
+	Meteor.call('getStatuscode', imgSrcLeft, function(err, result) {
+		if(result === 200) {
+			var img = document.createElement('img');
+			$(img).attr('src', imgSrcLeft);
+			$(img).attr('class', 'img-pnr');
+			$('#photo-1-block').append(img);
+		}
+	});
+	
+	var imgSrcRight = 'http://sittard-geleen.gispubliek.nl/paspoortfotos/' + boominfo.paspoortnummer + '.jpg';
 	var img = document.createElement('img');
-	$(img).attr('src', imgSrc);
+	$(img).attr('src', imgSrcRight);
 	$(img).attr('class', 'img-pnr');
-	$('#photo-1-block').append(img);
+	$('#photo-2-block').append(img);
 	
 	var projection = new ol.proj.Projection({
 		code: 'EPSG:28992',
