@@ -16,7 +16,7 @@ Router.route('/bomenpaspoort', function () {
 	  name: 'viewer'
 });
 
-Router.route('/template/:paspoortnummer/:straatnaam/:woonplaats/:boomsoort/:aantal/:aanlegjaar/:terrein/:monumentaal/:waardevol/:coord1/:coord2', function () {
+Router.route('/bomenpaspoort/template/:paspoortnummer/:straatnaam/:woonplaats/:boomsoort/:aantal/:aanlegjaar/:terrein/:monumentaal/:waardevol/:coord1/:coord2', function () {
 	var object = {'paspoortnummer': this.params.paspoortnummer, 'straatnaam': this.params.straatnaam, 'woonplaats': this.params.woonplaats, 
 			'boomsoort': this.params.boomsoort, 'aantal': this.params.aantal, 'aanlegjaar': this.params.aanlegjaar, 'terrein': this.params.terrein, 
 			'monumentaal': this.params.monumentaal, 'waardevol': this.params.waardevol};

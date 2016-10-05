@@ -66,9 +66,17 @@ Template.viewer.onRendered(function() {
 		
 		Meteor.call('getFeatureInfo', url, function(err, result) {
 			if(typeof result !== 'undefined') {
-				window.open(Router.url('template', {'paspoortnummer': result.paspoortnummer, 'straatnaam': result.straatnaam, 'woonplaats': result.woonplaats, 
-					'boomsoort': result.boomsoort, 'aantal': result.aantal, 'aanlegjaar': result.aanlegjaar, 'terrein': result.terrein, 
-					'monumentaal': result.monumentaal, 'waardevol': result.waardevol, 'coord1': evt.coordinate[0], 'coord2': evt.coordinate[1]}));
+				Meteor.call('getRooturl', function(errRoot, resultRoot) {
+					if(typeof result !== 'undefined') {
+						var index = resultRoot.lastIndexOf('/');
+						var prefix = resultRoot.substring(0, index);
+						var suffix = '/bomenpaspoort/template/' + result.paspoortnummer + '/' + result.straatnaam + '/' + result.woonplaats + '/'
+							+ result.boomsoort + '/' + result.aantal + '/' + result.aanlegjaar + '/' + result.terrein + '/' 
+							+ result.monumentaal + '/' + result.waardevol + '/' + evt.coordinate[0] + '/' + evt.coordinate[1];
+						
+						window.open(prefix + suffix);
+					}
+				});
 			}
 		});
 	});
