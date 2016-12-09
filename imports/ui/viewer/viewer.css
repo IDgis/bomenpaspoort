@@ -1,1 +1,4 @@
+#location-input-div {position:absolute;top:25px;width:100%;z-index:1;}
+#location-input-group {width:300px;margin-left:auto;margin-right:auto;}
+
 #map {width:100%;height:100%;padding:20px;}
