@@ -81,3 +81,26 @@ Template.viewer.onRendered(function() {
 		});
 	});
 });
+
+Template.viewer.events({
+	'click #js-location-search': function() {
+		var value = $('#location-input')[0].value;
+		var finalValue = value.split(' ').join('+');
+		
+		var url = 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?zoekterm=' + finalValue;
+		
+		Meteor.call('getLocation', url, function(err, result) {
+			if(typeof result !== 'undefined') {
+				var coordinatesString = result.split(' ');
+				
+				var coordX = parseFloat(coordinatesString[0]);
+				var coordY = parseFloat(coordinatesString[1]);
+				
+				var coordinates = [coordX, coordY];
+				
+				map.getView().setCenter(coordinates);
+				map.getView().setZoom(4);
+			}
+		});
+	}
+});
