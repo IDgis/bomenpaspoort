@@ -16,13 +16,13 @@ Router.route('/bomenpaspoort', function () {
 	  name: 'viewer'
 });
 
-Router.route('/bomenpaspoort/template/:paspoortnummer/:straatnaam/:woonplaats/:boomsoort/:aantal/:aanlegjaar/:terrein/:monumentaal/:waardevol/:coord1/:coord2', function () {
-	var object = {'paspoortnummer': this.params.paspoortnummer, 'straatnaam': this.params.straatnaam, 'woonplaats': this.params.woonplaats, 
-			'boomsoort': this.params.boomsoort, 'aantal': this.params.aantal, 'aanlegjaar': this.params.aanlegjaar, 'terrein': this.params.terrein, 
-			'monumentaal': this.params.monumentaal, 'waardevol': this.params.waardevol};
+Router.route('/bomenpaspoort/template', function () {
+	var object = {'paspoortnummer': this.params.query.pn, 'straatnaam': this.params.query.sn, 'woonplaats': this.params.query.wp, 
+			'boomsoort': this.params.query.bs, 'aantal': this.params.query.aant, 'aanlegjaar': this.params.query.jaar, 'terrein': this.params.query.terr, 
+			'monumentaal': this.params.query.mon, 'waardevol': this.params.query.waarde};
 	
 	Session.set('boomInformatie', object);
-	Session.set('boomCoordinaten', [parseInt(this.params.coord1), parseInt(this.params.coord2)]);
+	Session.set('boomCoordinaten', [parseInt(this.params.query.coordx), parseInt(this.params.query.coordy)]);
 	
 	this.render('template');
 	}, {

@@ -70,9 +70,19 @@ Template.viewer.onRendered(function() {
 					if(typeof result !== 'undefined') {
 						var index = resultRoot.lastIndexOf('/');
 						var prefix = resultRoot.substring(0, index);
-						var suffix = '/bomenpaspoort/template/' + result.paspoortnummer + '/' + result.straatnaam + '/' + result.woonplaats + '/'
-							+ result.boomsoort + '/' + result.aantal + '/' + result.aanlegjaar + '/' + result.terrein + '/' 
-							+ result.monumentaal + '/' + result.waardevol + '/' + evt.coordinate[0] + '/' + evt.coordinate[1];
+						
+						var suffix = '/bomenpaspoort/template?' 
+							+ 'pn=' + result.paspoortnummer.split('&').join('%26')
+							+ '&sn=' + result.straatnaam.split('&').join('%26')
+							+ '&wp=' + result.woonplaats.split('&').join('%26')
+							+ '&bs=' + result.boomsoort.split('&').join('%26')
+							+ '&aant=' + result.aantal.split('&').join('%26')
+							+ '&jaar=' + result.aanlegjaar.split('&').join('%26')
+							+ '&terr=' + result.terrein.split('&').join('%26')
+							+ '&mon=' + result.monumentaal.split('&').join('%26')
+							+ '&waarde=' + result.waardevol.split('&').join('%26')
+							+ '&coordx=' + evt.coordinate[0]
+							+ '&coordy=' + evt.coordinate[1];
 						
 						window.open(prefix + suffix);
 					}
