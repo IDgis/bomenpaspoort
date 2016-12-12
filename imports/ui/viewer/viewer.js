@@ -70,9 +70,19 @@ Template.viewer.onRendered(function() {
 					if(typeof result !== 'undefined') {
 						var index = resultRoot.lastIndexOf('/');
 						var prefix = resultRoot.substring(0, index);
-						var suffix = '/bomenpaspoort/template/' + result.paspoortnummer + '/' + result.straatnaam + '/' + result.woonplaats + '/'
-							+ result.boomsoort + '/' + result.aantal + '/' + result.aanlegjaar + '/' + result.terrein + '/' 
-							+ result.monumentaal + '/' + result.waardevol + '/' + evt.coordinate[0] + '/' + evt.coordinate[1];
+						
+						var suffix = '/bomenpaspoort/template?' 
+							+ 'pn=' + result.paspoortnummer.split('&').join('%26')
+							+ '&sn=' + result.straatnaam.split('&').join('%26')
+							+ '&wp=' + result.woonplaats.split('&').join('%26')
+							+ '&bs=' + result.boomsoort.split('&').join('%26')
+							+ '&aant=' + result.aantal.split('&').join('%26')
+							+ '&jaar=' + result.aanlegjaar.split('&').join('%26')
+							+ '&terr=' + result.terrein.split('&').join('%26')
+							+ '&mon=' + result.monumentaal.split('&').join('%26')
+							+ '&waarde=' + result.waardevol.split('&').join('%26')
+							+ '&coordx=' + evt.coordinate[0]
+							+ '&coordy=' + evt.coordinate[1];
 						
 						window.open(prefix + suffix);
 					}
@@ -84,23 +94,35 @@ Template.viewer.onRendered(function() {
 
 Template.viewer.events({
 	'click #js-location-search': function() {
-		var value = $('#location-input')[0].value;
-		var finalValue = value.split(' ').join('+');
+		locationSearch();
+	},
+	'keypress #js-location-input': function(e) {
+		if(e.which === 13) {
+			locationSearch();
+		} else {
+			//do nothing
+		}
 		
-		var url = 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?zoekterm=' + finalValue;
-		
-		Meteor.call('getLocation', url, function(err, result) {
-			if(typeof result !== 'undefined') {
-				var coordinatesString = result.split(' ');
-				
-				var coordX = parseFloat(coordinatesString[0]);
-				var coordY = parseFloat(coordinatesString[1]);
-				
-				var coordinates = [coordX, coordY];
-				
-				map.getView().setCenter(coordinates);
-				map.getView().setZoom(4);
-			}
-		});
 	}
 });
+
+function locationSearch() {
+	var value = $('#js-location-input')[0].value;
+	var finalValue = value.split(' ').join('+');
+	
+	var url = 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?zoekterm=' + finalValue;
+	
+	Meteor.call('getLocation', url, function(err, result) {
+		if(typeof result !== 'undefined') {
+			var coordinatesString = result.split(' ');
+			
+			var coordX = parseFloat(coordinatesString[0]);
+			var coordY = parseFloat(coordinatesString[1]);
+			
+			var coordinates = [coordX, coordY];
+			
+			map.getView().setCenter(coordinates);
+			map.getView().setZoom(4);
+		}
+	});
+}
