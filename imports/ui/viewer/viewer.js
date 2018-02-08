@@ -67,7 +67,7 @@ Template.viewer.onRendered(function() {
 		Meteor.call('getFeatureInfo', url, function(err, result) {
 			if(typeof result !== 'undefined') {
 				Meteor.call('getRooturl', function(errRoot, resultRoot) {
-					if(typeof result !== 'undefined') {
+					if(typeof resultRoot !== 'undefined') {
 						var index = resultRoot.lastIndexOf('/');
 						var prefix = resultRoot.substring(0, index);
 						
@@ -81,6 +81,8 @@ Template.viewer.onRendered(function() {
 							+ '&terr=' + result.terrein.split('&').join('%26')
 							+ '&mon=' + result.monumentaal.split('&').join('%26')
 							+ '&waarde=' + result.waardevol.split('&').join('%26')
+							+ '&aanvmon=' + result.aanvMonumentaal.split('&').join('%26')
+							+ '&aanvwa=' + result.aanvWaardevol.split('&').join('%26')
 							+ '&coordx=' + evt.coordinate[0]
 							+ '&coordy=' + evt.coordinate[1];
 						

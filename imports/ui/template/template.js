@@ -4,6 +4,21 @@ import './template.css';
 Template.template.onRendered(function() {
 	var boominfo = Session.get('boomInformatie');
 	var boomCoordinaten = Session.get('boomCoordinaten');
+
+	var monumentaal;
+	var waardevol;
+
+	if(boominfo.monumentaal === 'Ja' && boominfo.aanvullingMonumentaal !== undefined) {
+		monumentaal = boominfo.monumentaal + ', ' + boominfo.aanvullingMonumentaal;
+	} else {
+		monumentaal = boominfo.monumentaal;
+	}
+
+	if(boominfo.waardevol === 'Ja' && boominfo.aanvullingWaardevol !== undefined) {
+		waardevol = boominfo.waardevol + ', ' + boominfo.aanvullingWaardevol;
+	} else {
+		waardevol = boominfo.waardevol;
+	}
 	
 	$('#js-paspoortnummer').append(boominfo.paspoortnummer);
 	$('#js-straatnaam').append(boominfo.straatnaam);
@@ -12,8 +27,8 @@ Template.template.onRendered(function() {
 	$('#js-aantal').append(boominfo.aantal);
 	$('#js-aanlegjaar').append(boominfo.aanlegjaar);
 	$('#js-terrein').append(boominfo.terrein);
-	$('#js-monumentaal').append(boominfo.monumentaal);
-	$('#js-waardevol').append(boominfo.waardevol);
+	$('#js-monumentaal').append(monumentaal);
+	$('#js-waardevol').append(waardevol);
 	
 	var imgSrcLeft = 'http://sittard-geleen.gispubliek.nl/paspoortfotos/' + boominfo.paspoortnummer + 'L.jpg';
 	Meteor.call('getStatuscode', imgSrcLeft, function(err, result) {

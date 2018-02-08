@@ -7,6 +7,7 @@ Meteor.methods({
 		
 		if(typeof xml.FeatureCollection['gml:featureMember'] !== 'undefined') {
 			var featureObject = xml.FeatureCollection['gml:featureMember'][0]['app:paspoortbomen_sittard_geleen'][0];
+			console.log(featureObject);
 			
 			var paspoortnummer = getValueCheck(featureObject['app:paspoort']);
 			var straatnaam = getValueCheck(featureObject['app:straatnaam']);
@@ -17,10 +18,12 @@ Meteor.methods({
 			var terrein = getValueCheck(featureObject['app:terrein']);
 			var monumentaal = getValueCheck(featureObject['app:monumentaal']);
 			var waardevol = getValueCheck(featureObject['app:waardevol']);
+			var aanvMonumentaal = getValueCheck(featureObject['app:aanvulling_monumentaal']);
+			var aanvWaardevol = getValueCheck(featureObject['app:aanvulling_waardevol']);
 			
 			return {'paspoortnummer': paspoortnummer, 'straatnaam': straatnaam, 'woonplaats': woonplaats, 'boomsoort': boomsoort,
 							'aantal': aantal, 'aanlegjaar': aanlegjaar, 'terrein': terrein, 'monumentaal': monumentaal,
-							'waardevol': waardevol};
+							'waardevol': waardevol, 'aanvMonumentaal': aanvMonumentaal, 'aanvWaardevol': aanvWaardevol};
 		}
 		
 		function getValueCheck(field) {
