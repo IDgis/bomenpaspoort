@@ -4,16 +4,14 @@ import './viewer.css';
 Template.viewer.onRendered(function() {
 	var projection = new ol.proj.Projection({
 		code: 'EPSG:28992',
-		extent: [185130.30300000, 331786.35260000, 186691.93210000, 333634.55600000]
+		extent: [-285401.92, 22598.08, 595401.9199999999, 903401.9199999999]
 	});
-
+	
 	var view = new ol.View({
 		projection: projection,
-		center: [185911, 332710],
-		zoom: 1
+		center: [185411, 334810],
+		zoom: 8
 	});
-
-	var zoomControl = new ol.control.Zoom();
 
 	var resolutions = 
 		[3440.64, 1720.32, 860.16, 430.08, 215.04, 107.52, 53.76, 26.88, 13.44, 6.72, 3.36, 1.68, 0.84, 0.42, 0.21];
@@ -46,7 +44,7 @@ Template.viewer.onRendered(function() {
 
 	map = new ol.Map({
 		layers: [achtergrond],
-		control: zoomControl,
+		control: [new ol.control.Zoom()],
 		target: 'map',
 		view: view
 	});
