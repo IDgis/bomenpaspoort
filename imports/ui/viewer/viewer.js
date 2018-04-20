@@ -110,19 +110,23 @@ function locationSearch() {
 	var value = $('#js-location-input')[0].value;
 	var finalValue = value.split(' ').join('+');
 	
-	var url = 'https://geodata.nationaalgeoregister.nl/geocoder/Geocoder?zoekterm=' + finalValue;
+	var urlSuggestPrefix = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest?wt=xml&q=';
+	var urlIdPrefix = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup?wt=xml&id=';
 	
-	Meteor.call('getLocation', url, function(err, result) {
-		if(typeof result !== 'undefined') {
-			var coordinatesString = result.split(' ');
-			
-			var coordX = parseFloat(coordinatesString[0]);
-			var coordY = parseFloat(coordinatesString[1]);
-			
-			var coordinates = [coordX, coordY];
-			
-			map.getView().setCenter(coordinates);
-			map.getView().setZoom(4);
+	Meteor.call('getResponseFromLocationServer', urlSuggestPrefix + finalValue, 'id', function(err, id) {
+		if(typeof id !== 'undefined') {
+			Meteor.call('getResponseFromLocationServer', urlIdPrefix + id, 'centroide_rd', function(err, wkt) {
+				if(typeof wkt !== 'undefined') {
+					var indexStart = wkt.indexOf('(');
+					var indexEnd = wkt.indexOf(')');
+					var coordinates = wkt.substring(indexStart + 1, indexEnd).split(' ');
+					
+					if(coordinates.length === 2) {
+						map.getView().setCenter([parseFloat(coordinates[0]), parseFloat(coordinates[1])]);
+						map.getView().setZoom(12);
+					}
+				}
+			});
 		}
 	});
 }

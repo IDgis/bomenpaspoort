@@ -1,14 +1,20 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
-	getLocation: function(url) {
+	getResponseFromLocationServer(url, attribute) {
 		var res = HTTP.get(url);
 		var xml = xml2js.parseStringSync(res.content);
 		
-		if(typeof xml['xls:GeocodeResponse']['xls:GeocodeResponseList'] !== 'undefined') {
-			return xml['xls:GeocodeResponse']['xls:GeocodeResponseList'][0]['xls:GeocodedAddress'][0]['gml:Point'][0]['gml:pos'][0]._;
-		} else {
-			//don't return anything
+		var response;
+		if(typeof xml.response.result[0].doc !== 'undefined') {
+			var object = xml.response.result[0].doc[0];
+			object.str.forEach(function(item) {
+				if(item.$.name === attribute) {
+					response = item._;
+				}
+			});
 		}
+		
+		return response;
 	}
 });
