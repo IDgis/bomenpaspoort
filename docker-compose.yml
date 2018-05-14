@@ -3,7 +3,7 @@ version: '2'
 services:
   web:
     restart: always
-    image: idgis/bomenpaspoort:0.1.8
+    image: idgis/bomenpaspoort:0.1.9
     ports:
       - "3010:80"
     environment:
