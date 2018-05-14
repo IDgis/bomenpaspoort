@@ -69,20 +69,28 @@ Template.viewer.onRendered(function() {
 						var index = resultRoot.lastIndexOf('/');
 						var prefix = resultRoot.substring(0, index);
 						
-						var suffix = '/bomenpaspoort/template?' 
-							+ 'pn=' + result.paspoortnummer.split('&').join('%26')
-							+ '&sn=' + result.straatnaam.split('&').join('%26')
-							+ '&wp=' + result.woonplaats.split('&').join('%26')
-							+ '&bs=' + result.boomsoort.split('&').join('%26')
-							+ '&aant=' + result.aantal.split('&').join('%26')
-							+ '&jaar=' + result.aanlegjaar.split('&').join('%26')
-							+ '&terr=' + result.terrein.split('&').join('%26')
-							+ '&mon=' + result.monumentaal.split('&').join('%26')
-							+ '&waarde=' + result.waardevol.split('&').join('%26')
-							+ '&aanvmon=' + result.aanvMonumentaal.split('&').join('%26')
-							+ '&aanvwa=' + result.aanvWaardevol.split('&').join('%26')
-							+ '&coordx=' + evt.coordinate[0]
-							+ '&coordy=' + evt.coordinate[1];
+						var suffix = '/bomenpaspoort/template?';
+						
+						suffix += 'pn=' + result.paspoortnummer.split('&').join('%26');
+						suffix += '&sn=' + result.straatnaam.split('&').join('%26');
+						suffix += '&wp=' + result.woonplaats.split('&').join('%26');
+						suffix += '&bs=' + result.boomsoort.split('&').join('%26');
+						suffix += '&aant=' + result.aantal.split('&').join('%26');
+						suffix += '&jaar=' + result.aanlegjaar.split('&').join('%26');
+						suffix += '&terr=' + result.terrein.split('&').join('%26');
+						suffix += '&mon=' + result.monumentaal.split('&').join('%26');
+						suffix += '&waarde=' + result.waardevol.split('&').join('%26');
+						
+						if(result.aanvMonumentaal !== undefined) {
+							suffix += '&aanvmon=' + result.aanvMonumentaal.split('&').join('%26');
+						}
+						
+						if(result.aanvWaardevol !== undefined) {
+							suffix += '&aanvwa=' + result.aanvWaardevol.split('&').join('%26');
+						}
+						
+						suffix += '&coordx=' + evt.coordinate[0];
+						suffix += '&coordy=' + evt.coordinate[1];
 						
 						window.open(prefix + suffix);
 					}
