@@ -78,8 +78,8 @@ Template.template.onRendered(function() {
 		extent: [-285401.92, 22598.08, 595401.9199999999, 903401.9199999999],
 		source : new ol.source.WMTS({
 			attributions: [],
-			url: '//geodata.nationaalgeoregister.nl/wmts',
-			layer: 'brtachtergrondkaartgrijs',
+			url: '//service.pdok.nl/brt/achtergrondkaart/wmts/v2_0',
+			layer: 'standaard',
 			matrixSet: 'EPSG:28992',
 			format: 'image/png',
 			tileGrid: tileGrid0,
