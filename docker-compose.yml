@@ -3,8 +3,8 @@ version: '2'
 services:
   web:
     restart: always
-    image: idgis/bomenpaspoort:0.1.9
+    image: idgis/bomenpaspoort:0.1.10
     ports:
-      - "3010:80"
+      - "3010:3000"
     environment:
       - ROOT_URL=http://sittard-geleen.gispubliek.nl/bomenpaspoort
